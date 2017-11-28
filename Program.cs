@@ -16,8 +16,10 @@ namespace EveryDay.BuhHelper
         {
             Console.Write("Введите ИНН ");
             string inn = Console.ReadLine();
-            //Console.WriteLine(\"введеный инн {0}\",inn,inn);
             Console.Write(inn);
+            inn = "6663003127";
+            Console.Write(" ");
+            Console.Write("всё равно используем 6663003127 так как другие запрещены");
             //var url = "https://focus-api.kontur.ru/api3/req?key=3208d29d15c507395db770d0e65f3711e40374df&inn=6663003127";
 
             var url = "https://focus-api.kontur.ru/api3/req?key=3208d29d15c507395db770d0e65f3711e40374df&inn=" + inn;
@@ -34,10 +36,18 @@ namespace EveryDay.BuhHelper
             // Open the stream using a StreamReader for easy access.
             StreamReader reader = new StreamReader(dataStream);
             // Read the content.
-            string responseFromServer = reader.ReadToEnd();
+            //string responseFromServer = reader.ReadToEnd();
+            string responseFromServer = reader.ReadLine();
             // Display the content.
-            Console.WriteLine(responseFromServer);
+            
 
+            Console.Write("Руководитель: ");
+            string s1 = responseFromServer.Substring(responseFromServer.IndexOf("heads")+15, responseFromServer.IndexOf("innfl") - responseFromServer.IndexOf("heads")-16);
+            Console.WriteLine(s1);
+
+            Console.Write("наименование: ");
+            s1 = responseFromServer.Substring(responseFromServer.IndexOf("full")+6, responseFromServer.IndexOf("date")- responseFromServer.IndexOf("full")-10);
+            Console.WriteLine(s1);
             // Clean up the streams and the response.
             reader.Close();
 
